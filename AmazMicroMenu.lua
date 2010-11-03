@@ -32,13 +32,13 @@ local AMMFrame = CreateFrame("Frame","AMMFrame",UIParent)
 AMMFrame:SetHeight(AMM_FontSize + 4)
 AMMFrame:SetPoint("RIGHT",AmazChatLeftTopCaption,"RIGHT",-4,0)
 
-
+--[[
 AMMFrame:SetBackdropColor(1,0,0,1);
 AMMFrame:SetBackdrop({bgFile = "Interface/Tooltips/UI-Tooltip-Background", 
                                             edgeFile = "", 
                                             tile = false, tileSize = 0, edgeSize = 0, 
                                             insets = { left = 0, right = 0, top = 0, bottom = 0 }});
-
+]]--
 
 -- Create one menu item
 function AMM:CreateMenuItem(menuName, menuInfo)
