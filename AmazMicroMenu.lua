@@ -45,10 +45,12 @@ function AMM:CreateMenuItems()
 	local previousItem = nil
 	local menuItems = 0
 	
-	for menuName, menuInfo in pairs(AMM_MenuItems) do
+	--for menuName, menuInfo in pairs(AMM_MenuItems) do
+	for i = 1, table.getn(AMM_MenuItems) do
+		local menuInfo = AMM_MenuItems[i]
 		if (menuInfo.enabled == true) then
 	
-			local MIFrame = CreateFrame("BUTTON", "AMMMenu_".. menuName, AMMFrame, "SecureActionButtonTemplate")
+			local MIFrame = CreateFrame("BUTTON", "AMMMenu_".. i, AMMFrame, "SecureActionButtonTemplate")
 			MIFrame:SetHeight(AMM_FontSize*AMM_Scale)
 			MIFrame:SetWidth(AMM_ButtonSize*AMM_Scale)
 			MIFrame:SetBackdrop({bgFile = TukuiCF["media"].blank,
@@ -147,12 +149,37 @@ function AMM:CheckAvailable()
 	end
 end
 
-function AMM:Init()
+function AMMFrame:Clear()
+	local childs = {AMMFrame:GetChildren()}
+	for i = 1, table.getn(childs) do
+		childs[i]:Hide()
+	end
+end
+
+function AMMFrame:PLAYER_ENTERING_WORLD(event)
+	AMMFrame:DoRedraw()
+end
+
+function AMMFrame:PLAYER_LEVEL_UP(event)
+	AMMFrame:DoRedraw()
+end
+
+function AMMFrame:DoRedraw()
+	AMMFrame:Clear()
 	
 	AMM:CheckAvailable()
 	
 	AMM:CreateMenuItems()
+end
+
+function AMM:Init()
+    AMMFrame:RegisterEvent("PLAYER_ENTERING_WORLD")
+	AMMFrame:RegisterEvent("PLAYER_LEVEL_UP")
 	
+
+	AMMFrame:SetScript("OnEvent", function(self, event, ...)
+		AMMFrame[event](self, event, ...)
+	end)
 end
 
 AMM.Init()
