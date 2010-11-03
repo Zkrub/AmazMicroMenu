@@ -35,7 +35,7 @@ AMMFrame:SetHeight(18 * AMM_Scale)
 if (AMM_Enable_TukPanel == true) then
 	TukuiDB.CreatePanel(AMMFrame, AMMFrame:GetWidth() + 8, AMMFrame:GetHeight(), "CENTER", UIParent, "CENTER", 0, 0)
 else
-	AMMFrame:SetPoint("RIGHT",AmazChatLeftTopCaption,"RIGHT", -8, 0)
+	AMMFrame:SetPoint("RIGHT", AmazChatLeftTopCaption, "RIGHT", -8, 0)
 end
 
 
