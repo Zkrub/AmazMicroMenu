@@ -12,6 +12,7 @@ local AMM_FontColor = {
 }
 
 local AMM_ButtonSize = 8
+local AMM_ButtonPadding = 2
 
 local AMM_MenuItems = {}
 table.insert(AMM_MenuItems, {enabled = true, letter = "C", name = "Character"})
@@ -31,18 +32,18 @@ local AMMFrame = CreateFrame("Frame","AMMFrame",UIParent)
 AMMFrame:SetHeight(AMM_FontSize + 4)
 AMMFrame:SetPoint("RIGHT",AmazChatLeftTopCaption,"RIGHT",-4,0)
 
---[[
+
 AMMFrame:SetBackdropColor(1,0,0,1);
 AMMFrame:SetBackdrop({bgFile = "Interface/Tooltips/UI-Tooltip-Background", 
                                             edgeFile = "", 
                                             tile = false, tileSize = 0, edgeSize = 0, 
                                             insets = { left = 0, right = 0, top = 0, bottom = 0 }});
-]]--
+
 
 -- Create one menu item
 function AMM:CreateMenuItem(menuName, menuInfo)
 	local MIFrame = CreateFrame("BUTTON", "AMMMenu_".. menuName, AMMFrame, "SecureActionButtonTemplate")
-	MIFrame:SetHeight(AMM_FontSize*AMM_Scale+2)
+	MIFrame:SetHeight(AMM_FontSize*AMM_Scale)
 	MIFrame:SetWidth(AMM_ButtonSize*AMM_Scale)
 	--TukuiDB.SetTemplate(MIFrame)
 	
@@ -96,7 +97,7 @@ function AMM:Init()
 			if (previousItem == nil) then
 				menuItem:SetPoint("LEFT", AMMFrame, "LEFT", 0, 0)
 			else
-				menuItem:SetPoint("LEFT", previousItem, "RIGHT", 2, 0)
+				menuItem:SetPoint("LEFT", previousItem, "RIGHT", AMM_ButtonPadding * AMM_Scale, 0)
 			end
 			previousItem = menuItem
 			
@@ -104,7 +105,7 @@ function AMM:Init()
 		end
 	end
 	
-	AMMFrame:SetWidth((((menuItems - 2) * 2) + (menuItems * AMM_ButtonSize)) * AMM_Scale)
+	AMMFrame:SetWidth(((menuItems * AMM_ButtonSize) + ((menuItems - 2) * AMM_ButtonPadding)) * AMM_Scale)
 	
 	AMM_MenuItems = nil
 end
