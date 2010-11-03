@@ -1,0 +1,9 @@
+﻿## Interface: 40000
+## Author: Amaz @ Zenedar-EU
+## Version: 0.1
+## Title: |cFF00FFFFAmaz|r Micro Menu
+## Notes: Very minimalistic micro menu
+## RequiredDeps: Tukui, Tukui_Edit_Amaz
+## SavedVariables: 
+
+AmazMicroMenu.lua
