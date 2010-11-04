@@ -1,7 +1,8 @@
 
 -- Config
 local AMM_Scale = 1.0
-local AMM_Enable_TukPanel = false
+local AMM_Enable_TukPanel = false	-- Enable micro menu with Tukui panel as background
+local AMM_TukDatatext = 5 			-- Set position if you wish to enable it
 
 local AMM_Font = TukuiCF.media.font
 local AMM_FontSize = 12
@@ -32,7 +33,11 @@ local AMM = {}
 local AMMFrame = CreateFrame("Frame","AMMFrame",UIParent)
 AMMFrame:SetHeight(18 * AMM_Scale)
 
-if (AMM_Enable_TukPanel == true) then
+if (AMM_TukDatatext > 0) then
+	AMM_FontSize = TukuiCF["datatext"].fontsize
+	AMM_FontColor = { R = 1.0, G = 1.0, B = 1.0 }
+	TukuiDB.PP(AMM_TukDatatext, AMMFrame)
+elseif (AMM_Enable_TukPanel == true) then
 	TukuiDB.CreatePanel(AMMFrame, AMMFrame:GetWidth() + 8, AMMFrame:GetHeight(), "CENTER", UIParent, "CENTER", 0, 0)
 else
 	AMMFrame:SetPoint("RIGHT", AmazChatLeftTopCaption, "RIGHT", -8, 0)
@@ -75,9 +80,9 @@ function AMM:CreateMenuItems()
 			--TukuiDB.SetTemplate(MIFrame)
 			
 			MIFrame.letter = MIFrame:CreateFontString(nil, "ARTWORK")
-			MIFrame.letter:SetPoint("CENTER", MIFrame, "CENTER", 1, 0)
+			MIFrame.letter:SetPoint("CENTER", MIFrame, "CENTER", 0.5, 0)
 			MIFrame.letter:SetFont(AMM_Font, AMM_FontSize*AMM_Scale, AMM_FontOutline)
-			MIFrame.letter:SetTextColor(AMM_FontColor.R, AMM_FontColor.G, AMM_FontColor.B)
+			--MIFrame.letter:SetTextColor(AMM_FontColor.R, AMM_FontColor.G, AMM_FontColor.B)
 			MIFrame.letter:SetText(menuInfo.letter)
 			--MIFrame.letter:SetShadowOffset(TukuiDB.mult, -TukuiDB.mult)
 			MIFrame.letter:Show()
@@ -176,7 +181,6 @@ function AMM:Init()
     AMMFrame:RegisterEvent("PLAYER_ENTERING_WORLD")
 	AMMFrame:RegisterEvent("PLAYER_LEVEL_UP")
 	
-
 	AMMFrame:SetScript("OnEvent", function(self, event, ...)
 		AMMFrame[event](self, event, ...)
 	end)
